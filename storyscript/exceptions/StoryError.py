@@ -153,7 +153,24 @@ class StoryError(SyntaxError):
         elif intention.assignment():
             return ErrorCodes.assignment_incomplete
 
-        self._format = {'allowed': str(self.error.expected)}
+        expected = self.error.expected
+        if len(expected) == 1:
+            # Try to show the literal token value
+            from storyscript.parser import Grammar as Grammar  # noqa
+
+            expected = expected[0]
+            grammar = Grammar()
+            grammar.build()
+            token_name = expected.lower()[1:]
+            expected_token = grammar.ebnf._tokens.get(token_name)
+            if expected_token:
+                allowed = '`{}`'.format(expected_token['value'].strip('"'))
+            else:
+                allowed = expected
+        else:
+            allowed = str(self.error.expected)
+
+        self._format = {'allowed': allowed}
         if token.type == '_NL':
             return ErrorCodes.unexpected_end_of_line
 

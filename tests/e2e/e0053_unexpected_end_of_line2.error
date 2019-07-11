@@ -3,4 +3,4 @@ Error: syntax error in story at line 1, column 6
 1|    foo .
            ^
 
-E0053: Unexpected end of line. Expected: ['NAME'].
+E0053: Unexpected end of line. Expected: NAME.

@@ -3,4 +3,4 @@ Error: syntax error in story at line 3, column 6
 3|    catch
            ^
 
-E0053: Unexpected end of line. Expected: ['_AS'].
+E0053: Unexpected end of line. Expected: `as`.

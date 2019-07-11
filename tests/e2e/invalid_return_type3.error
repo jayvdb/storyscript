@@ -3,4 +3,4 @@ Error: syntax error in story at line 1, column 26
 1|    function foo returns List
                                ^
 
-E0053: Unexpected end of line. Expected: ['_OSB'].
+E0053: Unexpected end of line. Expected: `[`.
