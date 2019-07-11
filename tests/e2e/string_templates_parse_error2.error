@@ -1,6 +1,6 @@
-Error: syntax error in story at line 1, column 8
+Error: syntax error in story at line 2, column 6
 
-1|                bar     
-              ^^
+2|    c = "{      bar     }"
+           ^^^^^^^^^^^^^^^^
 
-E0041: `	` is not allowed here
+E0101: Variable `bar` has not been defined.

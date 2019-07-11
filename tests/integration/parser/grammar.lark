@@ -88,7 +88,6 @@ block: rules _NL| if_block| foreach_block| function_block| arguments| indented_c
 nested_block: _INDENT block+ _DEDENT
 start: _NL? block*
 
-_WS: (" ")+
 INT_TYPE: "int"
 BOOLEAN_TYPE: "boolean"
 FLOAT_TYPE: "float"
@@ -158,8 +157,8 @@ _WHEN: "when"
 SINGLE_LINE_COMMENT: /(\r?\n)?\s*#[^\n\r]*/
 MULTI_LINE_COMMENT: /(\r?\n)?\s*#+##[^#](.|\n)*?###[^\n\r]*/
 
-%ignore _WS
+%ignore WS_INLINE
 %ignore SINGLE_LINE_COMMENT
 %ignore MULTI_LINE_COMMENT
 
-
+%import common.WS_INLINE

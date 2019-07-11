@@ -268,7 +268,6 @@ class Grammar:
         self.ebnf.nested_block = 'indent block+ dedent'
 
     def build(self):
-        self.ebnf._WS = '(" ")+'
         self.macros()
         self.types()
         self.values()
@@ -286,7 +285,8 @@ class Grammar:
         self.throw_statement()
         self.block()
         self.ebnf.start = 'nl? block*'
-        self.ebnf.ignore('_WS')
+        self.ebnf.load('WS_INLINE')
+        self.ebnf.ignore('WS_INLINE')
         self.ebnf.SINGLE_LINE_COMMENT = r'/(\r?\n)?\s*#[^\n\r]*/'
         self.ebnf.ignore('SINGLE_LINE_COMMENT')
         self.ebnf.MULTI_LINE_COMMENT = \
