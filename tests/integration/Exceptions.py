@@ -122,4 +122,4 @@ def test_exceptions_block_expected_after(capsys):
     lines = e.value.message().splitlines()
     assert lines[0] == 'Error: syntax error in story at line 2, column 1'
     assert lines[2] == '2|    a = 2'
-    assert lines[5] == 'E0046: An indented block is required to be before here'
+    assert lines[5] == 'E0041: `a` is not allowed here'
