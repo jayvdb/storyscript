@@ -3,8 +3,8 @@ environment:
     PIP_CACHE_DIR: C:\pip_cache
 
   matrix:
-    - PYTHON: "C:\\Python36"
-    - PYTHON: "C:\\Python36-x64"
+    - PYTHON: "C:\\Python37"
+    - PYTHON: "C:\\Python37-x64"
 
 cache:
   - "C:\\pip_cache"
