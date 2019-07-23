@@ -58,7 +58,7 @@ def test_bundle_ignores(patch):
     patch.object(os, 'walk', return_value=[('root', [], ['one.story', 'two'])])
     result = Bundle.ignores('path')
     os.walk.assert_called_with('path')
-    assert result == ['root/one.story']
+    assert result == [os.path.join('root', 'one.story')]
 
 
 def test_bundle_ignores_not_dir(patch):
@@ -71,13 +71,14 @@ def test_bundle_ignores_not_dir(patch):
 
 def test_bundle_filter_path(patch):
     patch.object(os.path, 'relpath')
-    result = Bundle.filter_path('./root', 'one.story', [])
-    os.path.relpath.assert_called_with('./root/one.story')
+    result = Bundle.filter_path(os.path.join('.', 'root'), 'one.story', [])
+    os.path.relpath.assert_called_with(os.path.join('.', 'root', 'one.story'))
     assert result == os.path.relpath()
 
 
 def test_bundle_filter_path_ignores():
-    result = Bundle.filter_path('./root', 'one.story', ['root/one.story'])
+    result = Bundle.filter_path(os.path.join('.', 'root'), 'one.story',
+                                [os.path.join('root', 'one.story')])
     assert result is None
 
 
@@ -90,21 +91,23 @@ def test_bundle_parse_directory(patch, bundle):
     result = Bundle.parse_directory('dir')
     assert Bundle.gitignores.call_count == 1
     os.walk.assert_called_with('dir')
-    assert result == ['root/one.story']
+    assert result == [os.path.join('root', 'one.story')]
 
 
 def test_bundle_parse_directory_gitignored(patch, bundle):
     """
     Ensures parse_directory does not return gitignored files
     """
-    patch.object(os, 'walk', return_value=[('./root', [], ['one.story'])])
+    patch.object(os, 'walk', return_value=[(os.path.join('.', 'root'),
+                                           [], ['one.story'])])
     patch.object(Bundle, 'gitignores')
-    Bundle.gitignores.return_value = ['root/one.story']
+    Bundle.gitignores.return_value = [os.path.join('root', 'one.story')]
     assert Bundle.parse_directory('dir') == []
 
 
 def test_bundle_parse_directory_ignored_path(patch, bundle):
-    patch.object(os, 'walk', return_value=[('./root', [], ['one.story'])])
+    patch.object(os, 'walk', return_value=[(os.path.join('.', 'root'),
+                                           [], ['one.story'])])
     patch.many(Bundle, ['gitignores', 'ignores'])
     Bundle.gitignores.return_value = []
     Bundle.parse_directory('dir', ignored_path='ignored')
