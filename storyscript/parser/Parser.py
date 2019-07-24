@@ -2,6 +2,7 @@
 import io
 
 from lark import Lark
+from lark.exceptions import VisitError
 
 from .Grammar import Grammar
 from .Indenter import CustomIndenter
@@ -54,7 +55,10 @@ class Parser:
         source = '{}\n'.format(source)
         lark = self.lark
         tree = lark.parse(source)
-        result = self.transformer(allow_single_quotes).transform(tree)
+        try:
+            result = self.transformer(allow_single_quotes).transform(tree)
+        except VisitError as e:
+            raise e.orig_exc
         result.parser = self
         return result
 
