@@ -3,4 +3,4 @@ Error: syntax error in story at line 1, column 27
 1|    function foo returns List[in]
                                 ^
 
-E0046: An indented block is required to be before here
+E0041: `i` is not allowed here

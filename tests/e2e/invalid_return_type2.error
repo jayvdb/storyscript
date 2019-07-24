@@ -3,4 +3,4 @@ Error: syntax error in story at line 1, column 22
 1|    function foo returns foo
                            ^
 
-E0046: An indented block is required to be before here
+E0041: `f` is not allowed here
